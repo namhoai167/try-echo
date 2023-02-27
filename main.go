@@ -14,10 +14,12 @@ func main() {
 	// Middleware
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
+	isLogedIn := middleware.JWT([]byte(handler.SECRET_KEY))
+	isAdmin := mdw.IsAdminMiddleware
 
 	// Routes
-	isLogedIn := middleware.JWT([]byte(handler.SECRET_KEY))
 	e.GET("/", handler.Hello, isLogedIn)
+	e.GET("/admin", handler.Hello, isLogedIn, isAdmin)
 	e.POST("/login", handler.Login, middleware.BasicAuth(mdw.BasicAuth))
 
 	// Start server
