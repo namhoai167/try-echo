@@ -16,7 +16,8 @@ func main() {
 	e.Use(middleware.Recover())
 
 	// Routes
-	e.GET("/", handler.Hello)
+	isLogedIn := middleware.JWT([]byte(handler.SECRET_KEY))
+	e.GET("/", handler.Hello, isLogedIn)
 	e.POST("/login", handler.Login, middleware.BasicAuth(mdw.BasicAuth))
 
 	// Start server
