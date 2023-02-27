@@ -10,14 +10,14 @@ import (
 )
 
 func Hello(c echo.Context) error {
+	// Get the username, admin status from JWT
 	user := c.Get("user").(*jwt.Token)
 	claims := user.Claims.(jwt.MapClaims)
-
 	username := claims["username"].(string)
 	admin := claims["admin"].(bool)
 
+	// Construct response
 	message := fmt.Sprintf("Hello %s. Admin status: %v", username, admin)
-
 	simpleResponse := &models.SimpleResponse{
 		Text: message,
 	}
