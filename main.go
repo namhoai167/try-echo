@@ -24,6 +24,7 @@ func main() {
 
 	// Group API
 	groupUser := e.Group("/api/user", isLogedIn)
+	groupUser.GET("/get_all/", handler.GetAllUsers)
 	groupUser.GET("/", handler.GetUser)
 	groupUser.PUT("/", handler.UpdateUser, isAdmin)
 	groupUser.DELETE("/", handler.DeleteUser, isAdmin)
